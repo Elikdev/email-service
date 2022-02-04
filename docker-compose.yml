@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  email-service:
+    build: 
+      context: ./
+    volumes:
+      - nginx-config: /etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "4000:4000"
+volumes:
+  nginx-config: ./nginx/nginx-setup.config
