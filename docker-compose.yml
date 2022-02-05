@@ -1,11 +1,22 @@
-version: "3.3"
+version: "3.9"
 services:
-  email-service:
+  email-services:
     build: 
       context: ./
-    volumes:
-      - nginx-config: /etc/nginx/conf.d/default.conf:ro
     ports:
       - "4000:4000"
-volumes:
-  nginx-config: ./nginx/nginx-setup.config
+    networks:
+      - email-server-net
+  nginx:
+    build: 
+      context: ./nginx
+    ports: 
+      - "80:80"
+    depends_on:
+      - email-service
+    networks:
+      - email-server-net
+
+networks:
+  email-server-net:
+    external: true

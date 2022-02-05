@@ -1,9 +1,7 @@
-FROM node:latest
-FROM nginx:latest
-WORKDIR /server
-COPY package.json package.json
-COPY package-lock.json package-lock.json
+FROM node:14
+WORKDIR /usr/src/app
+COPY ./email-service/package*.json /usr/src/app/
 RUN npm install
-COPY . .
-RUN npm start
+COPY ./email-service/ /usr/src/app/
 EXPOSE 4000
+CMD [ "node", "server.js" ]
